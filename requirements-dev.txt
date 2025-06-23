@@ -1,0 +1,5 @@
+# Ludwig Development Dependencies
+pytest>=6.0
+black>=21.0
+flake8>=3.8
+mypy>=0.900

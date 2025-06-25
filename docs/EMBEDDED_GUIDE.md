@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/NanaBright/ludwig/main/assets/logo.png" alt="Ludwig Logo" width="120"/>
+</p>
+
 # Ludwig Embedded Systems Development Guide
 
 Ludwig provides a comprehensive framework for embedded systems and IoT development, offering hardware abstraction, sensor interfaces, and common embedded application patterns.

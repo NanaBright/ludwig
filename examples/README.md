@@ -10,10 +10,25 @@ This directory contains example applications and components demonstrating Ludwig
 - `dashboard_page.ludwig` - Dashboard page component
 
 ### Desktop Examples (`desktop/`)
-- `mycalculator_app.ludwig` - Simple calculator desktop application
-- `mydesktopapp_app.ludwig` - Basic desktop app template
-- `userprofile_form.ludwig` - User profile form with validation
-- `dataprocessor_service.ludwig` - Background data processing service
+- **Complete Projects:**
+  - `MyDashboard/` - Full-featured dashboard application
+  - `MyDesktopApp/` - Complete desktop app with services
+  - `SimpleDemo/` - Basic demo application
+  - `TextEditor/` - Text editor implementation
+- **Individual Examples:**
+  - `mycalculator_app.ludwig` - Simple calculator desktop application
+  - `mydesktopapp_app.ludwig` - Basic desktop app template
+  - `userprofile_form.ludwig` - User profile form with validation
+  - `dataprocessor_service.ludwig` - Background data processing service
+  - `simplenotepad_app.ludwig` - Simple notepad application
+  - `todoapp_app.ludwig` - Todo list application
+
+### Embedded Examples (`embedded/`)
+- **IoT Systems:** Complete embedded device examples
+- **POS Systems:** Point of sale implementations
+- **Smart Home:** Home automation examples
+- **Robotics:** Robot control systems
+- See `embedded/README.md` for detailed documentation
 
 ### Components (`components/`)
 - `blogcard_component.ludwig` - Reusable blog card component

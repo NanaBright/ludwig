@@ -1,9 +1,17 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/NanaBright/ludwig/main/assets/logo.png" alt="Ludwig Logo" width="120"/>
+</p>
+
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Platform Support](https://img.shields.io/badgeplatform-web%20%7C%20desktop%20%7C%20embedded-blue)
 
 # Ludwig Development Platform
 
 Ludwig is a **complete modern development platform** that combines Python-inspired syntax with powerful frameworks for building web applications, desktop applications, and embedded systems. Ludwig is designed to be simple, elegant, and developer-friendly.
+
+## 🚀 Quick Start
+
+**👉 [Getting Started Guide](GETTING_STARTED.md) - Complete setup and tutorial**
 
 ## ✨ Platform Capabilities
 
@@ -342,6 +350,20 @@ Ludwig brings modern development capabilities to both web and desktop applicatio
 - **Cross-Platform Desktop**: Native-like desktop apps on Windows, Mac, Linux
 - **Service Architecture**: Built-in services for file, database, HTTP operations
 - **Event-Driven Programming**: Modern event handling for desktop applications
+
+## 📚 Documentation Index
+
+| Guide | Description | Best For |
+|-------|-------------|----------|
+| **[🚀 Getting Started](GETTING_STARTED.md)** | Complete setup tutorial with examples | New users, first project |
+| **[📖 Complete Guide](COMPLETE_GUIDE.md)** | Comprehensive feature documentation | Full platform overview |
+| **[🖥️ Desktop Quickstart](DESKTOP_QUICKSTART.md)** | Desktop app development guide | GUI applications |
+| **[🔌 Embedded Guide](EMBEDDED_GUIDE.md)** | IoT and embedded systems | Hardware projects |
+| **[🏗️ Integration Summary](INTEGRATION_COMPLETE.md)** | Technical architecture overview | Developers, contributors |
+| **[📋 Project Structure](PROJECT_STRUCTURE.md)** | Code organization guide | Understanding codebase |
+| **[⚡ Development Summary](DEVELOPMENT_SUMMARY.md)** | Development workflow | Contributing, advanced usage |
+
+---
 
 ## Contributing
 

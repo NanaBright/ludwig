@@ -7,6 +7,9 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-yellow.svg" alt="MIT License"></a>
+  <a href="https://github.com/NanaBright/ludwig"><img src="https://img.shields.io/github/downloads/NanaBright/ludwig/total?style=flat&logo=github&color=brightgreen" alt="Total Downloads"></a>
+  <a href="https://github.com/NanaBright/ludwig/network/members"><img src="https://img.shields.io/github/forks/NanaBright/ludwig?style=flat&logo=github&color=blue" alt="Forks"></a>
+  <a href="https://github.com/NanaBright/ludwig/stargazers"><img src="https://img.shields.io/github/stars/NanaBright/ludwig?style=flat&logo=github&color=yellow" alt="Stars"></a>
   <a href="#"><img src="https://img.shields.io/badge/platform-web%20%7C%20desktop%20%7C%20embedded-blue" alt="Platform Support"></a>
   <a href="#"><img src="https://img.shields.io/badge/made%20with-%E2%9D%A4-red" alt="Made with Love"></a>
 </p>
@@ -67,6 +70,8 @@
 git clone https://github.com/NanaBright/ludwig.git
 cd ludwig
 ```
+
+**👉 [Get Started Now](docs/GETTING_STARTED.md) - Complete setup guide with examples**
 
 #### Web
 ```bash
@@ -146,10 +151,11 @@ ludwig/
 
 ## 📚 Documentation
 
-- [Complete Guide](docs/COMPLETE_GUIDE.md)
-- [Desktop Quickstart](docs/DESKTOP_QUICKSTART.md)
-- [Embedded Guide](docs/EMBEDDED_GUIDE.md)
-- [Integration Summary](docs/INTEGRATION_COMPLETE.md)
+- **[🚀 Getting Started](docs/GETTING_STARTED.md)** - Quick setup and first projects
+- [Complete Guide](docs/COMPLETE_GUIDE.md) - Comprehensive feature documentation
+- [Desktop Quickstart](docs/DESKTOP_QUICKSTART.md) - Desktop development guide
+- [Embedded Guide](docs/EMBEDDED_GUIDE.md) - IoT and embedded systems
+- [Integration Summary](docs/INTEGRATION_COMPLETE.md) - Technical overview
 
 ---
 

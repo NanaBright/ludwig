@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/NanaBright/ludwig/main/assets/logo.png" alt="Ludwig Logo" width="120"/>
+</p>
+
 # Contributing to Ludwig 🚀
 
 Thank you for your interest in contributing to Ludwig! This guide will help you get started with contributing to our modern development platform.

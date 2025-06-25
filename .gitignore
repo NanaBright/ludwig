@@ -55,6 +55,23 @@ ci*.ludwig
 test*.ludwig
 temp_*.ludwig
 
+# Temporary files and test artifacts
+*_embedded.ludwig
+*_pos.ludwig
+*_kiosk.ludwig
+*_scanner.ludwig
+*_smarthome.ludwig
+*_robot.ludwig
+test*.ludwig
+citestdevice_embedded.ludwig
+citestpos_pos.ludwig
+citesthome_smarthome.ludwig
+
+# Development artifacts
+artisan_clean.py
+temp_*
+test_*_temp.*
+
 # Logs
 *.log
 logs/

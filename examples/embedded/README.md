@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/NanaBright/ludwig/main/assets/logo.png" alt="Ludwig Logo" width="120"/>
+</p>
+
 # Ludwig Embedded Systems Examples
 
 This directory contains example embedded applications demonstrating Ludwig's IoT and embedded systems capabilities.

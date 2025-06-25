@@ -117,3 +117,69 @@ temp/
 *.pem
 *.key
 config/secrets.json
+
+# Release and distribution files
+RELEASE_NOTES_*.md
+GITHUB_RELEASE_GUIDE.md
+release_notes_*.txt
+release_*.md
+draft_release_*.md
+
+# Package builds and distributions
+*.whl
+*.tar.gz
+*.zip
+dist/
+build/
+*.egg-info/
+
+# Documentation drafts and temporary docs
+docs/draft_*
+docs/temp_*
+*_DRAFT.md
+*_TODO.md
+*_NOTES.md
+
+# Backup and archive files
+*.bak
+*.backup
+*.old
+*.orig
+archive/
+backup/
+
+# Editor temporary files
+.*.swp
+.*.swo
+*.tmp
+*~
+\#*\#
+.\#*
+
+# System files
+.fuse_hidden*
+.nfs*
+
+# Cache directories
+.cache/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.tox/
+
+# Local development files
+local/
+dev_local/
+sandbox/
+scratch/
+experiments/
+
+# Database files (if any)
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated files
+generated/
+auto_generated/
+codegen/

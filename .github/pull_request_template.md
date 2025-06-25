@@ -103,6 +103,18 @@ python bin/ludwig make:embedded TestDevice
 - [ ] No merge conflicts
 - [ ] Commit messages are clear and descriptive
 
+## ✅ Checklist
+<!-- Please check all items that apply -->
+- [ ] I have read and agree to the [Code of Conduct](../CODE_OF_CONDUCT.md)
+- [ ] I have read the [Contributing Guidelines](../CONTRIBUTING.md)
+- [ ] My code follows the project's style guidelines
+- [ ] I have tested my changes thoroughly
+- [ ] I have added tests for new functionality (if applicable)
+- [ ] I have updated documentation (if applicable)
+- [ ] My changes don't introduce any security vulnerabilities
+- [ ] All existing tests pass
+- [ ] I have reviewed my own code before submitting
+
 ### 🎯 Review Focus Areas
 <!-- Guide reviewers on what to focus on -->
 - [ ] Code logic and correctness

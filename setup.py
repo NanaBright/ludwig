@@ -13,8 +13,8 @@ def read_file(filename):
 
 setup(
     name="ludwig-lang",
-    version="1.0.0",
-    description="Modern programming language for web and desktop applications",
+    version="0.1.0",
+    description="Modern multi-platform development framework for Web, Desktop, and Embedded/IoT systems",
     long_description=read_file("docs/README.md"),
     long_description_content_type="text/markdown",
     author="Ludwig Development Team",

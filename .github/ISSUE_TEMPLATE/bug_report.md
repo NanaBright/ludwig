@@ -49,7 +49,7 @@ Add any other context about the problem here.
 If you have ideas on how to fix this, please share them here.
 
 ## 📋 Checklist
-- [ ] I have searched existing issues for this bug
-- [ ] I have provided all requested information
-- [ ] I have tested with the latest version of Ludwig
-- [ ] I have included steps to reproduce the issue
+- [ ] I have read the [Code of Conduct](../../CODE_OF_CONDUCT.md)
+- [ ] I have searched existing issues to avoid duplicates
+- [ ] This is a bug report (not a feature request or question)
+- [ ] I have provided all required information above

@@ -10,6 +10,7 @@
   <a href="https://github.com/NanaBright/ludwig"><img src="https://img.shields.io/github/downloads/NanaBright/ludwig/total?style=flat&logo=github&color=brightgreen" alt="Total Downloads"></a>
   <a href="https://github.com/NanaBright/ludwig/network/members"><img src="https://img.shields.io/github/forks/NanaBright/ludwig?style=flat&logo=github&color=blue" alt="Forks"></a>
   <a href="https://github.com/NanaBright/ludwig/stargazers"><img src="https://img.shields.io/github/stars/NanaBright/ludwig?style=flat&logo=github&color=yellow" alt="Stars"></a>
+  <a href="SECURITY.md"><img src="https://img.shields.io/badge/security-policy-red?style=flat&logo=shield" alt="Security Policy"></a>
   <a href="#"><img src="https://img.shields.io/badge/platform-web%20%7C%20desktop%20%7C%20embedded-blue" alt="Platform Support"></a>
   <a href="#"><img src="https://img.shields.io/badge/made%20with-%E2%9D%A4-red" alt="Made with Love"></a>
 </p>
@@ -237,9 +238,13 @@ Ludwig is built by an amazing community of developers! See our [Contributors](CO
 
 ---
 
-## 📄 License
+## 📄 License & Policies
 
-Licensed under the **MIT License** — see [LICENSE](LICENSE).
+Ludwig is licensed under the **MIT License** — see [LICENSE](LICENSE).
+
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** - Community guidelines and standards
+- **[Security Policy](SECURITY.md)** - Vulnerability reporting and security practices
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to Ludwig
 
 ---
 

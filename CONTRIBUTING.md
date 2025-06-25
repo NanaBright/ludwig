@@ -6,6 +6,14 @@
 
 Thank you for your interest in contributing to Ludwig! This guide will help you get started with contributing to our modern development platform.
 
+## 🤝 Code of Conduct
+
+By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it to understand the standards we expect from our community.
+
+## 🛡️ Security
+
+If you find a security vulnerability, please do NOT open a public issue. Instead, follow our [Security Policy](SECURITY.md) for responsible disclosure.
+
 ## 🎯 Ways to Contribute
 
 ### 🐛 Bug Reports

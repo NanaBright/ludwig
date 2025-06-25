@@ -73,7 +73,8 @@ Link to any related issues or discussions:
 - Discussion link
 
 ## 📋 Checklist
-- [ ] I have searched existing issues for this feature request
-- [ ] I have provided a clear description of the feature
-- [ ] I have explained the problem this feature would solve
-- [ ] I have considered the impact on different platforms
+- [ ] I have read the [Code of Conduct](../../CODE_OF_CONDUCT.md)
+- [ ] I have searched existing issues and discussions for similar requests
+- [ ] This is a feature request (not a bug report or question)
+- [ ] I have provided all required information above
+- [ ] I understand this feature may take time to implement

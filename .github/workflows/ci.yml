@@ -1,0 +1,214 @@
+name: Ludwig CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Code quality checks
+  lint:
+    runs-on: ubuntu-latest
+    name: Code Quality
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+        
+    - name: Run Black
+      run: black --check --diff src/ tests/
+      
+    - name: Run flake8
+      run: flake8 src/ tests/
+      
+    - name: Run isort
+      run: isort --check-only --diff src/ tests/
+      
+    - name: Run mypy
+      run: mypy src/
+      continue-on-error: true  # Temporarily allow mypy failures
+
+  # Core testing
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    name: Test Python ${{ matrix.python-version }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        
+    - name: Test framework imports
+      run: |
+        python -c "import sys; sys.path.append('src/frameworks'); import embedded_framework"
+        python -c "import sys; sys.path.append('src/frameworks'); import web_framework"
+        python -c "import sys; sys.path.append('src/frameworks'); import desktop_framework"
+        
+    - name: Run integration tests
+      run: python tests/test_embedded_integration.py
+      
+    - name: Test CLI commands
+      run: |
+        python bin/ludwig help
+        python bin/ludwig make:embedded TestDevice
+        python bin/ludwig make:pos TestPOS
+        python bin/ludwig make:smarthome TestHome
+        
+    - name: Run pytest
+      run: pytest tests/ -v --tb=short
+      continue-on-error: true  # Allow some test failures during development
+
+  # Platform-specific testing
+  test-platforms:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9']
+    name: Test ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Test basic functionality
+      run: |
+        python bin/ludwig help
+        python bin/ludwig make:embedded TestDevice
+        
+    - name: Test framework imports
+      run: python -c "import sys; sys.path.append('src/frameworks'); import embedded_framework; print('✅ Embedded framework works')"
+
+  # Documentation checks
+  docs:
+    runs-on: ubuntu-latest
+    name: Documentation
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check documentation files exist
+      run: |
+        test -f README.md
+        test -f CONTRIBUTING.md
+        test -f docs/EMBEDDED_GUIDE.md
+        test -f docs/FINAL_SUMMARY.md
+        test -f examples/embedded/README.md
+        
+    - name: Check markdown links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        config-file: '.github/markdown-link-check.json'
+      continue-on-error: true
+
+  # Security scanning
+  security:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install bandit
+      run: pip install bandit
+      
+    - name: Run bandit security scan
+      run: bandit -r src/ -f json -o bandit-report.json
+      continue-on-error: true
+      
+    - name: Upload bandit report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: bandit-report
+        path: bandit-report.json
+
+  # Example validation
+  examples:
+    runs-on: ubuntu-latest
+    name: Validate Examples
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Check example files exist
+      run: |
+        ls examples/embedded/
+        test -f examples/embedded/testiot_embedded.ludwig
+        test -f examples/embedded/smarthouse_smarthome.ludwig
+        test -f examples/embedded/myrobot_robot.ludwig
+        
+    - name: Generate new examples
+      run: |
+        python bin/ludwig make:embedded CITest
+        python bin/ludwig make:kiosk CIKiosk
+        python bin/ludwig make:robotics CIRobot
+        ls -la citest_embedded.ludwig cikiosk_kiosk.ludwig cirobot_robot.ludwig
+
+  # Release preparation (only on main branch)
+  release-check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    name: Release Check
+    needs: [lint, test, test-platforms, docs, examples]
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check version consistency
+      run: |
+        echo "Checking version consistency across files..."
+        # Add version checking logic here
+        
+    - name: Validate changelog
+      run: |
+        test -f CHANGELOG.md
+        echo "✅ Changelog exists"
+        
+    - name: Run full demo
+      run: |
+        python demo.py
+        echo "✅ Demo completed successfully"

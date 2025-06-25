@@ -1,0 +1,33 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^https://ludwig-platform.com"
+    },
+    {
+      "pattern": "^mailto:"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/",
+      "replacement": "https://github.com/NanaBright/ludwig/blob/main/"
+    }
+  ],
+  "httpStatusCodes": {
+    "400": "warn",
+    "401": "warn",
+    "403": "warn",
+    "404": "error",
+    "405": "warn",
+    "500": "error",
+    "502": "warn",
+    "503": "warn"
+  },
+  "timeout": "30s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackHttpStatus": "warn"
+}

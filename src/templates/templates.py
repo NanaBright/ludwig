@@ -1538,6 +1538,7 @@ class ProjectGenerator:
             "basic": BasicProjectTemplate(),
             "web": WebProjectTemplate(),
             "desktop": DesktopProjectTemplate(),
+            # "embedded": EmbeddedProjectTemplate(),  # Removed because not implemented
             "cli": CLIProjectTemplate(),
         }
     

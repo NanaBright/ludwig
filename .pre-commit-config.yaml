@@ -1,0 +1,86 @@
+# Pre-commit hooks for Ludwig development
+# Install with: pre-commit install
+
+repos:
+  # Code formatting
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: [--line-length=88]
+        exclude: ^(examples/|tests/fixtures/)
+
+  # Import sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile=black]
+        exclude: ^(examples/|tests/fixtures/)
+
+  # Linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=88, --extend-ignore=E203,W503]
+        exclude: ^(examples/|tests/fixtures/)
+
+  # Security checks
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [-r, -f, json]
+        exclude: ^(tests/|examples/)
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(docs/|examples/)
+      - id: end-of-file-fixer
+        exclude: ^(docs/|examples/)
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+
+  # Markdown checks
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.35.0
+    hooks:
+      - id: markdownlint
+        args: [--fix]
+        exclude: ^(CONTRIBUTING.md|README.md)
+
+  # Python type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.3.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests]
+        exclude: ^(examples/|tests/fixtures/)
+
+# Ludwig-specific checks
+  # Ensure Ludwig CLI commands work
+  - repo: local
+    hooks:
+      - id: ludwig-cli-check
+        name: Ludwig CLI Check
+        entry: python bin/ludwig help
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      # Validate embedded framework
+      - id: embedded-framework-check
+        name: Embedded Framework Check
+        entry: python -c "import sys; sys.path.append('src/frameworks'); import embedded_framework"
+        language: system
+        pass_filenames: false
+        files: ^src/frameworks/embedded_framework\.py$

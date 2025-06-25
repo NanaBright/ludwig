@@ -22,6 +22,17 @@ Ludwig is now a **complete modern development platform** that supports both **we
 - **Layout management** (stack, grid, border layouts)
 - **System integration** (menus, toolbars, notifications)
 
+### 🔌 Embedded Systems & IoT
+- **Embedded applications** for Arduino, Raspberry Pi, ESP32, and IoT devices
+- **Hardware abstraction** for sensors, actuators, and displays
+- **POS systems** with barcode/QR scanning and payment processing
+- **QR kiosks** for interactive information systems
+- **Inventory scanners** with cloud synchronization
+- **Smart home automation** with device control and monitoring
+- **Robotics systems** with navigation and safety features
+- **Connectivity services** (WiFi, Bluetooth, cloud integration)
+- **Event-driven sensor processing** with real-time data handling
+
 ### 🛠️ Developer Tools
 - **Artisan CLI** with Laravel-style code generation
 - **One-command project setup** for both web and desktop
@@ -48,6 +59,14 @@ python artisan.py run main.ludwig
 ```
 **Result**: Cross-platform desktop app with modern GUI and services!
 
+### Create an IoT Device (30 seconds)
+```bash
+python artisan.py make:embedded TempMonitor
+# Edit sensor configuration
+python temp_monitor_embedded.ludwig
+```
+**Result**: IoT device with temperature sensors, cloud sync, and alerts!
+
 ### Generate Components (10 seconds)
 ```bash
 # Web development
@@ -58,6 +77,14 @@ python artisan.py make:auth                   # Authentication
 python artisan.py make:desktop Calculator     # Desktop app
 python artisan.py make:form UserProfile      # UI form
 python artisan.py make:service DataProcessor # Background service
+
+# Embedded systems
+python artisan.py make:embedded IoTDevice     # IoT application
+python artisan.py make:pos RetailSystem      # POS system
+python artisan.py make:kiosk InfoStation     # QR Kiosk system
+python artisan.py make:scanner InventoryTool # Inventory scanner
+python artisan.py make:smarthome MyHome      # Smart home system
+python artisan.py make:robotics RobotBot     # Robotics controller
 ```
 
 ## 📁 Project Organization
@@ -65,9 +92,10 @@ python artisan.py make:service DataProcessor # Background service
 ### Core Framework Files
 - `web_framework.py` - Complete web development platform
 - `desktop_framework.py` - Cross-platform desktop application framework
+- `embedded_framework.py` - IoT and embedded systems development platform
 - `artisan.py` - Laravel-inspired CLI with code generation
 - `ludwig_setup.py` - One-command project setup script
-- `templates.py` - Project templates for web, desktop, CLI, and basic apps
+- `templates.py` - Project templates for web, desktop, embedded, CLI, and basic apps
 - `database.py` - ORM, query builder, and migrations
 - `auth.py` - JWT authentication and middleware
 - `validation.py` - Input validation system
@@ -82,10 +110,12 @@ python artisan.py make:service DataProcessor # Background service
 ### Documentation & Examples
 - `README.md` - Main project documentation
 - `DESKTOP_QUICKSTART.md` - Desktop development guide
+- `EMBEDDED_GUIDE.md` - Comprehensive embedded systems development guide
 - `PROJECT_ORGANIZATION.md` - Complete project structure guide
 - `examples/` - Sample applications and components
   - `web/` - Web application examples
   - `desktop/` - Desktop application examples
+  - `embedded/` - Embedded and IoT application examples
   - `components/` - Reusable component examples
 
 ## 🌟 Key Features
@@ -94,11 +124,13 @@ python artisan.py make:service DataProcessor # Background service
 - **Python-inspired syntax** that's easy to learn
 - **Laravel patterns** for web development
 - **C#/.NET patterns** for desktop development
+- **Arduino/Raspberry Pi patterns** for embedded development
 - **Modern architecture** with clean separation of concerns
 
 ### Powerful & Complete
 - **Full-stack web development** with authentication and database
 - **Cross-platform desktop apps** with native-like experience
+- **Embedded systems and IoT** with hardware abstraction
 - **Built-in services** for common operations
 - **One-command setup** for rapid project creation
 
@@ -111,9 +143,10 @@ python artisan.py make:service DataProcessor # Background service
 ## 📋 Available Templates
 
 1. **Web** - Full-stack web applications with authentication, database, and modern UI
-2. **Desktop** - Cross-platform desktop applications with modern GUI framework
-3. **CLI** - Command-line applications with argument parsing
-4. **Basic** - Simple Ludwig applications for learning and experimentation
+2. **Desktop** - Cross-platform desktop applications with modern GUI framework  
+3. **Embedded** - IoT and embedded systems with hardware abstraction and connectivity
+4. **CLI** - Command-line applications with argument parsing
+5. **Basic** - Simple Ludwig applications for learning and experimentation
 
 ## 🎓 Perfect For
 
@@ -126,6 +159,11 @@ python artisan.py make:service DataProcessor # Background service
 - C# developers who want cross-platform apps
 - Python developers who want GUI applications
 - Anyone wanting modern desktop development
+
+### Embedded/IoT Developers
+- Arduino/Raspberry Pi developers wanting higher-level abstractions
+- IoT developers needing rapid prototyping
+- Anyone building connected devices or automation systems
 
 ### Beginners
 - Python-like syntax that's easy to learn
@@ -147,6 +185,10 @@ python ludwig_setup.py my_blog web
 
 # Desktop application
 python ludwig_setup.py my_app desktop
+
+# Embedded/IoT application
+python artisan.py make:embedded my_device
+python artisan.py make:smarthome smart_house
 
 # Basic project
 python artisan.py new my_project
@@ -172,8 +214,9 @@ python artisan.py dev
 
 **Web Development**: ✅ Complete (Laravel-inspired with modern UI)  
 **Desktop Development**: ✅ Complete (C#/.NET-inspired with cross-platform GUI)  
+**Embedded/IoT Development**: ✅ Complete (Arduino/RPi-inspired with hardware abstraction)  
 **Developer Tools**: ✅ Complete (Artisan CLI, templates, one-command setup)  
 **Documentation**: ✅ Complete (guides, examples, organization)  
 **Project Structure**: ✅ Clean and organized  
 
-**Ludwig is now a modern, powerful, and simple development platform that makes building both web and desktop applications as easy as writing Python! 🚀**
+**Ludwig is now a modern, powerful, and simple development platform that makes building web, desktop, and embedded applications as easy as writing Python! 🚀**

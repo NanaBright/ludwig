@@ -274,20 +274,38 @@ function scan_inventory():
     barcode = scanner.get_component("barcode_reader").read()
     
     if barcode:
-        item = lookup_inventory_item(barcode)
-        update_inventory_count(item)
-        display_item_info(item)
+        item_data = lookup_inventory_item(barcode)
+        update_inventory_count(item_data)
+        display_item_info(item_data)
     
     return barcode
 end
 
-function update_inventory_count(item):
-    storage = scanner.get_component("storage")
-    current_count = storage.get(item.id, 0)
-    new_count = current_count + 1
-    storage.set(item.id, new_count)
+function lookup_inventory_item(barcode):
+    # Mock inventory lookup - replace with actual database/API call
+    inventory = {{
+        "123456789": {{"id": "123456789", "name": "Widget A", "price": 19.99}},
+        "987654321": {{"id": "987654321", "name": "Gadget B", "price": 29.99}},
+        "555666777": {{"id": "555666777", "name": "Tool C", "price": 9.99}}
+    }}
     
-    print(f"Updated {item.name}: {new_count} units")
+    return inventory.get(barcode, {{"id": barcode, "name": "Unknown Item", "price": 0.00}})
+end
+
+function update_inventory_count(item_data):
+    storage = scanner.get_component("storage")
+    current_count = storage.get(item_data["id"], 0)
+    new_count = current_count + 1
+    storage.set(item_data["id"], new_count)
+    
+    print(f"Updated {{item_data['name']}}: {{new_count}} units")
+end
+
+function display_item_info(item_data):
+    display = scanner.get_component("display")
+    display.clear()
+    display.print(f"Item: {{item_data['name']}}")
+    display.print(f"Price: ${{item_data['price']}}")
 end
 
 function main():
@@ -447,28 +465,54 @@ function patrol_mode():
     image = camera.capture()
     
     # Process image for object detection
-    objects = detect_objects(image)
+    detected_objects = detect_objects(image)
     
-    if objects:
-        robot.get_component("display").print(f"Found {len(objects)} objects")
-        investigate_objects(objects)
+    if detected_objects:
+        robot.get_component("display").print(f"Found {{len(detected_objects)}} objects")
+        investigate_objects(detected_objects)
 end
 
-function investigate_objects(objects):
+function detect_objects(image):
+    # Mock object detection - replace with actual computer vision
+    import random
+    
+    # Simulate finding 0-3 objects
+    num_objects = random.randint(0, 3)
+    detected_objects = []
+    
+    for i in range(num_objects):
+        obj_data = {{
+            "id": f"obj_{{i}}",
+            "position": {{"x": random.randint(10, 90), "y": random.randint(10, 90)}},
+            "type": f"object_type_{{i}}"
+        }}
+        detected_objects.append(obj_data)
+    
+    return detected_objects
+end
+
+function investigate_objects(detected_objects):
     arm = robot.get_actuator("arm")
     wheels = robot.get_actuator("wheels")
     
     wheels.stop()
     
-    for obj in objects:
+    for obj_data in detected_objects:
         # Point arm towards object
-        arm.move_to_position(obj.position)
+        arm.move_to_position(obj_data["position"])
         robot.sleep(2000)
         
         # Take detailed photo
         camera = robot.get_sensor("camera")
         detailed_image = camera.capture_hd()
-        save_image(detailed_image, f"object_{obj.id}.jpg")
+        save_image(detailed_image, f"object_{{obj_data['id']}}.jpg")
+end
+
+function save_image(image_data, filename):
+    # Mock image saving function
+    print(f"Saving image: {{filename}}")
+    # In real implementation, save image data to file
+    pass
 end
 
 function remote_control_mode():
@@ -590,18 +634,338 @@ class HelpCommand(ArtisanCommand):
         print(__doc__)
 
 
+class NewProjectCommand(ArtisanCommand):
+    """Create a new Ludwig project."""
+    
+    def execute(self, args):
+        if not args:
+            print("Error: Project name is required")
+            print("Usage: python artisan.py new <project_name> [template]")
+            print("Templates: web, desktop, embedded")
+            return
+        
+        project_name = args[0]
+        template_name = args[1] if len(args) > 1 else "web"
+        
+        # For now, use our create_project.py script
+        import subprocess
+        import os
+        
+        try:
+            if template_name.lower() == "web":
+                result = subprocess.run([
+                    "python", "create_project.py", project_name, "web"
+                ], capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    print(result.stdout)
+                else:
+                    print(f"Error creating project: {result.stderr}")
+            else:
+                print(f"Template '{template_name}' not implemented yet.")
+                print("Available templates: web")
+                print("Coming soon: desktop, embedded")
+        except Exception as e:
+            print(f"Error creating project: {e}")
+
+
+class DevCommand(ArtisanCommand):
+    """Start development server."""
+    
+    def execute(self, args):
+        print("🚀 Starting Ludwig development server...")
+        
+        # Check if we're in a Ludwig project
+        if os.path.exists("main.ludwig"):
+            print("📁 Found main.ludwig - starting application...")
+            try:
+                import subprocess
+                subprocess.run(["python", "main.ludwig"])
+            except KeyboardInterrupt:
+                print("\n⏹️  Development server stopped.")
+            except Exception as e:
+                print(f"Error running application: {e}")
+        elif os.path.exists("ludwig.json"):
+            print("📁 Found ludwig.json - Ludwig project detected")
+            with open("ludwig.json", "r") as f:
+                import json
+                config = json.load(f)
+                main_file = config.get("main", "main.ludwig")
+                
+                if os.path.exists(main_file):
+                    try:
+                        import subprocess
+                        subprocess.run(["python", main_file])
+                    except KeyboardInterrupt:
+                        print("\n⏹️  Development server stopped.")
+                    except Exception as e:
+                        print(f"Error running application: {e}")
+                else:
+                    print(f"❌ Main file '{main_file}' not found")
+        else:
+            print("❌ No Ludwig project found in current directory")
+            print("Create a new project with: python artisan.py new <project_name> web")
+
+
+class RunCommand(ArtisanCommand):
+    """Execute a Ludwig file."""
+    
+    def execute(self, args):
+        if not args:
+            print("Error: File name is required")
+            print("Usage: python artisan.py run <file.ludwig>")
+            return
+        
+        file_name = args[0]
+        
+        if not os.path.exists(file_name):
+            print(f"Error: File '{file_name}' not found")
+            return
+        
+        try:
+            print(f"🚀 Running {file_name}...")
+            import subprocess
+            subprocess.run(["python", file_name])
+        except KeyboardInterrupt:
+            print(f"\n⏹️  Stopped {file_name}")
+        except Exception as e:
+            print(f"Error running file: {e}")
+
+
+class MakeComponentCommand(ArtisanCommand):
+    """Generate a UI component."""
+    
+    def execute(self, args):
+        if not args:
+            print("Error: Component name is required")
+            print("Usage: python artisan.py make:component <ComponentName>")
+            return
+        
+        component_name = args[0]
+        filename = f"components/{component_name.lower()}_component.ludwig"
+        
+        # Create components directory if it doesn't exist
+        os.makedirs("components", exist_ok=True)
+        
+        component_content = f'''# {component_name} Component
+# Generated by Ludwig Artisan
+
+import web_framework as Web
+
+class {component_name}Component:
+    """
+    {component_name} UI Component
+    Reusable component for web applications
+    """
+    
+    function render(props = {{}}):
+        # Component props with defaults
+        let title = props.get("title", "{component_name}")
+        let content = props.get("content", "Component content here")
+        let css_class = props.get("class", "")
+        
+        return f"""
+        <div class="{{css_class}} {component_name.lower()}-component bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">{{title}}</h3>
+            <div class="text-gray-600">
+                {{content}}
+            </div>
+        </div>
+        """
+    end
+    
+    function render_with_data(data):
+        # Render component with dynamic data
+        return render({{
+            "title": data.get("title", "{component_name}"),
+            "content": data.get("description", ""),
+            "class": "mb-4"
+        }})
+    end
+end
+
+# Usage example:
+# component = {component_name}Component()
+# html = component.render({{"title": "My Title", "content": "My content"}})
+'''
+        
+        try:
+            with open(filename, "w") as f:
+                f.write(component_content)
+            print(f"✅ Component created: {filename}")
+            print(f"📝 Class: {component_name}Component")
+            print(f"🎨 Usage: component.render({{'title': 'Title', 'content': 'Content'}})")
+        except Exception as e:
+            print(f"Error creating component: {e}")
+
+
+class MakeControllerCommand(ArtisanCommand):
+    """Generate a web controller."""
+    
+    def execute(self, args):
+        if not args:
+            print("Error: Controller name is required")
+            print("Usage: python artisan.py make:controller <ControllerName>")
+            return
+        
+        controller_name = args[0]
+        if not controller_name.endswith("Controller"):
+            controller_name += "Controller"
+        
+        filename = f"controllers/{controller_name.lower().replace('controller', '_controller')}.ludwig"
+        
+        # Create controllers directory if it doesn't exist
+        os.makedirs("controllers", exist_ok=True)
+        
+        controller_content = f'''# {controller_name}
+# Generated by Ludwig Artisan
+
+import web_framework as Web
+
+class {controller_name}:
+    """
+    {controller_name} - Web Controller
+    Handles HTTP requests and returns responses
+    """
+    
+    function index(request):
+        # GET / - List all items
+        return Web.render("index.html", {{
+            "title": "{controller_name.replace('Controller', '')} - Index",
+            "items": get_all_items(),
+            "message": "Welcome to {controller_name.replace('Controller', '')}"
+        }})
+    end
+    
+    function show(request):
+        # GET /{{id}} - Show specific item
+        let item_id = request.params.get("id")
+        let item = get_item_by_id(item_id)
+        
+        if not item:
+            return Web.error(404, "Item not found")
+        
+        return Web.render("show.html", {{
+            "title": f"{{item.name}} - Details",
+            "item": item
+        }})
+    end
+    
+    function create(request):
+        # GET /create - Show create form
+        return Web.render("create.html", {{
+            "title": "Create New Item",
+            "form_action": "/store"
+        }})
+    end
+    
+    function store(request):
+        # POST / - Save new item
+        let data = request.form_data
+        
+        # Validate input
+        if not data.get("name"):
+            return Web.redirect_with_error("/create", "Name is required")
+        
+        # Create new item
+        let item = create_new_item(data)
+        
+        return Web.redirect_with_success("/", f"{{item.name}} created successfully!")
+    end
+    
+    function edit(request):
+        # GET /{{id}}/edit - Show edit form
+        let item_id = request.params.get("id")
+        let item = get_item_by_id(item_id)
+        
+        if not item:
+            return Web.error(404, "Item not found")
+        
+        return Web.render("edit.html", {{
+            "title": f"Edit {{item.name}}",
+            "item": item,
+            "form_action": f"/{{item.id}}/update"
+        }})
+    end
+    
+    function update(request):
+        # PUT /{{id}} - Update item
+        let item_id = request.params.get("id")
+        let data = request.form_data
+        
+        let item = update_item(item_id, data)
+        
+        if not item:
+            return Web.error(404, "Item not found")
+        
+        return Web.redirect_with_success("/", f"{{item.name}} updated successfully!")
+    end
+    
+    function destroy(request):
+        # DELETE /{{id}} - Delete item
+        let item_id = request.params.get("id")
+        
+        if delete_item(item_id):
+            return Web.redirect_with_success("/", "Item deleted successfully!")
+        else:
+            return Web.error(404, "Item not found")
+    end
+end
+
+# Helper functions (implement based on your data model)
+function get_all_items():
+    # Return list of all items
+    return []
+end
+
+function get_item_by_id(item_id):
+    # Return specific item by ID
+    return None
+end
+
+function create_new_item(data):
+    # Create and return new item
+    return {{"id": 1, "name": data.get("name")}}
+end
+
+function update_item(item_id, data):
+    # Update and return item
+    return {{"id": item_id, "name": data.get("name")}}
+end
+
+function delete_item(item_id):
+    # Delete item and return success status
+    return True
+end
+'''
+        
+        try:
+            with open(filename, "w") as f:
+                f.write(controller_content)
+            print(f"✅ Controller created: {filename}")
+            print(f"📝 Class: {controller_name}")
+            print(f"🌐 CRUD operations: index, show, create, store, edit, update, destroy")
+        except Exception as e:
+            print(f"Error creating controller: {e}")
+
+
 class Artisan:
     """Main Artisan CLI class."""
     
     def __init__(self):
         self.commands = {
             'make:class': MakeClassCommand(),
+            'make:component': MakeComponentCommand(),
+            'make:controller': MakeControllerCommand(),
             'make:embedded': MakeEmbeddedCommand(),
             'make:pos': MakePOSCommand(),
             'make:kiosk': MakeKioskCommand(),
             'make:scanner': MakeScannerCommand(),
             'make:smarthome': MakeSmartHomeCommand(),
             'make:robotics': MakeRoboticsCommand(),
+            'new': NewProjectCommand(),
+            'dev': DevCommand(),
+            'run': RunCommand(),
             'version': VersionCommand(),
             'help': HelpCommand(),
         }

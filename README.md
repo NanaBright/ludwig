@@ -40,10 +40,11 @@
 ## ✨ Features
 
 ### 🌐 Web Development
-- Laravel-style backend: Auth, ORM, Validation
-- REST API generation: `make:api`
-- TailwindCSS + shadcn/ui components
-- JWT Auth, Middleware, Migrations
+- **Native Web Framework**: Pure Python HTTP server - no Flask/Django required  
+- **Zero Dependencies**: Built-in routing, templating, and static file serving
+- **TailwindCSS Integration**: Modern responsive UI out of the box
+- **REST API Support**: JSON responses and API generation
+- **Component System**: Reusable UI components with `make:component`
 
 ### 🖥️ Desktop Development
 - C#-inspired cross-platform GUI apps
@@ -58,10 +59,11 @@
 - WiFi, Bluetooth, Cloud-ready
 
 ### 🛠️ CLI & Tooling
-- `ludwig_setup.py` for project generation
-- `artisan.py` for scaffolding components
-- Hot reload & REPL support
-- Modern DX with code generation, testing
+- **Native Web Framework**: Pure Python - no Flask/Django required
+- **Artisan CLI**: `artisan.py` for project creation and scaffolding
+- **Component Generation**: Controllers, components, embedded systems
+- **Zero Dependencies**: Built-in HTTP server and templating
+- **Hot Reload**: Instant development feedback
 
 ---
 
@@ -70,24 +72,27 @@
 ```bash
 git clone https://github.com/NanaBright/ludwig.git
 cd ludwig
+pip install -r requirements.txt  # Optional dev dependencies only
 ```
 
 **👉 [Get Started Now](docs/GETTING_STARTED.md) - Complete setup guide with examples**
 
 #### Web
 ```bash
-python ludwig_setup.py my_blog web
+python artisan.py new my_blog web
 cd my_blog
-python artisan.py dev
+python main.ludwig
 ```
 
 #### Desktop
 ```bash
-python ludwig_setup.py my_app desktop
-cd my_app
-python artisan.py run main.ludwig
+python artisan.py make:desktop my_app
+python myapp_app.ludwig
 ```
 
+#### Embedded
+```bash
+python artisan.py make:embedded MyDevice
 #### Embedded
 ```bash
 python artisan.py make:embedded MyDevice
@@ -100,17 +105,19 @@ python mydevice_embedded.ludwig
 
 ```
 ludwig/
-├── web_framework.py
-├── desktop_framework.py
-├── embedded_framework.py
-├── artisan.py
-├── ludwig_setup.py
-├── validation.py
-├── database.py
-├── auth.py
-├── templates.py
-├── shell.py
-├── lexer.py / parse.py / interpreter.py
+├── web_framework.py          # Native web framework (no Flask!)
+├── artisan.py               # CLI for project generation
+├── create_project.py        # Project scaffolding utility
+├── src/
+│   ├── frameworks/          # Framework implementations
+│   ├── cli/                # Command-line tools
+│   └── templates/          # Project templates
+├── examples/               # Example projects
+│   ├── web/               # Web application examples
+│   ├── desktop/           # Desktop app examples  
+│   └── embedded/          # IoT/embedded examples
+└── docs/                  # Documentation
+```
 ├── examples/
 └── docs/
 ```
@@ -143,10 +150,12 @@ ludwig/
 
 | For           | Benefit |
 |---------------|---------|
-| Laravel Devs  | Familiar CLI + full-stack flow |
-| C# Devs       | Desktop UI with event-driven logic |
-| IoT Builders  | Generate firmware with readable syntax |
-| Beginners     | Pythonic structure + instant results |
+| **Web Developers** | No Flask/Django setup - pure Python web framework |
+| **Laravel Devs**  | Familiar Artisan CLI + MVC architecture |
+| **Python Devs**   | Zero dependencies, pure Python implementation |
+| **IoT Builders**  | Generate firmware with readable syntax |
+| **Beginners**     | One command creates working applications |
+| **Teams**         | Unified platform for web, desktop, and embedded |
 
 ---
 

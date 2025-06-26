@@ -47,9 +47,9 @@ def main():
     
     tests = [
         ("Python Environment Check", "python -c 'import collections.abc; print(\"Collections module OK\")'"),
-        ("Ludwig Collections Check", "python -c 'import ludwig_collections; print(\"Ludwig collections OK\")'"),
+        ("Ludwig Collections Check", "python -c 'import sys; sys.path.append(\"src/frameworks\"); import ludwig_collections; print(\"Ludwig collections OK\")'"),
         ("Embedded Framework Import", "python -c 'import sys; sys.path.append(\"src/frameworks\"); import embedded_framework; print(\"Embedded framework OK\")'"),
-        ("Web Framework Import", "python -c 'import sys; sys.path.append(\"src/frameworks\"); import web_framework; print(\"Web framework OK\")'"),
+        ("Web Framework Import", "python -c 'import web_framework; print(\"Web framework OK\")'"),
         ("Desktop Framework Import", "python -c 'import sys; sys.path.append(\"src/frameworks\"); import desktop_framework; print(\"Desktop framework OK\")'"),
         ("CLI Help Command", "python bin/ludwig help"),
         ("CLI Embedded Command", "python bin/ludwig make:embedded CITestDevice"),

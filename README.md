@@ -118,9 +118,6 @@ ludwig/
 │   └── embedded/          # IoT/embedded examples
 └── docs/                  # Documentation
 ```
-├── examples/
-└── docs/
-```
 
 ---
 

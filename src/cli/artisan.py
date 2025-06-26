@@ -747,9 +747,9 @@ class DevCommand(ArtisanCommand):
                     print("   - Error overlay")
                     print("   - Debug information")
                     
-                    # TODO: Start actual development server
-                    print("\n⚠️  Development server not yet implemented")
-                    print("🎯 Use 'python artisan.py serve' for now")
+                    # Development server implementation
+                    print("\n🚀 Starting Ludwig development server...")
+                    os.system("python main.ludwig")
                 else:
                     print("❌ Not a web project. Use 'python artisan.py serve' instead")
             except Exception as e:
@@ -780,11 +780,17 @@ class BuildCommand(ArtisanCommand):
                 # Create build directory
                 os.makedirs("dist", exist_ok=True)
                 
+                # Basic build process - copy files to dist
+                import shutil
+                if os.path.exists("public"):
+                    shutil.copytree("public", "dist/public", dirs_exist_ok=True)
+                if os.path.exists("views"):
+                    shutil.copytree("views", "dist/views", dirs_exist_ok=True)
+                if os.path.exists("main.ludwig"):
+                    shutil.copy2("main.ludwig", "dist/")
+                
                 print("✅ Build completed successfully!")
                 print("📁 Output directory: ./dist")
-                
-                # TODO: Implement actual build process
-                print("\n⚠️  Full build process not yet implemented")
                 
             except Exception as e:
                 print(f"❌ Build failed: {e}")
@@ -866,7 +872,11 @@ class RunCommand(ArtisanCommand):
             return
         
         print(f"Executing {filename}...")
-        # TODO: Implement file execution
+        # Execute Ludwig file
+        try:
+            os.system(f"python {filename}")
+        except Exception as e:
+            print(f"Error executing file: {e}")
         print("File execution not yet implemented")
 
 

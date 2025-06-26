@@ -48,7 +48,7 @@ class PasswordHasher:
             
             # Constant-time comparison to prevent timing attacks
             return hmac.compare_digest(stored_hash, new_hash_b64)
-        except:
+        except (ValueError, KeyError) as e:
             return False
 
 
@@ -113,7 +113,7 @@ class JWTToken:
             
             return payload
         
-        except:
+        except (ValueError, KeyError) as e:
             return None
 
 

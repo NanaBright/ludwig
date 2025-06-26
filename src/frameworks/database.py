@@ -33,7 +33,8 @@ class Database:
         if self.config['driver'] == 'sqlite':
             self.connection = sqlite3.connect(self.config['database'])
             self.connection.row_factory = sqlite3.Row
-        # TODO: Add PostgreSQL and MySQL support
+        else:
+            raise NotImplementedError(f"Database driver '{self.config['driver']}' not yet supported. Currently supports: sqlite")
     
     def execute(self, query, params=None):
         """Execute a database query."""

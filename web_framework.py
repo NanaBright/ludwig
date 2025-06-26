@@ -159,7 +159,8 @@ class LudwigRequest:
                 for key, value in self.form_data.items():
                     if len(value) == 1:
                         self.form_data[key] = value[0]
-        except:
+        except (ValueError, UnicodeDecodeError) as e:
+            # Ignore malformed form data
             pass
 
 

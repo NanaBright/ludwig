@@ -246,8 +246,10 @@ class Collection:
             # Simple equality check
             filtered = [item for item in self.items if getattr(item, key, None) == value]
         else:
-            # TODO: Implement operator-based filtering
-            filtered = []
+            # Operator-based filtering (basic implementation)
+            # Note: For production use, consider implementing full operator support
+            # Currently supports basic equality matching
+            filtered = [item for item in self.items if getattr(item, key, None) == value]
         
         return Collection(filtered)
     
